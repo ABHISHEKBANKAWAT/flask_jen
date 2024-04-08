@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        VENV_PATH = 'myprojectvenv'
+        VENV_PATH = 'myprojectenv'
     }
 
     stages {
