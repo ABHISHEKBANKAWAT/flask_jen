@@ -10,9 +10,7 @@ pipeline {
             steps {
                 script {
                     // Check for the virtual environment, create it if it doesn't exist
-                    if (!fileExists("$VENV_PATH")) {
-                        sh "python3 -m venv $VENV_PATH"
-                    }
+                    sh 'bash -c "python3 -m venv $VENV_PATH"'
                     // Activate the virtual environment
                     sh 'bash -c "source $VENV_PATH/bin/activate"'
                 }
