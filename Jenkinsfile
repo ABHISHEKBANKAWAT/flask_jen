@@ -14,14 +14,14 @@ pipeline {
                         sh "python3 -m venv $VENV_PATH"
                     }
                     // Activate the virtual environment
-                    sh "source $VENV_PATH/bin/activate"
+                    sh 'bash -c "source $VENV_PATH/bin/activate"'
                 }
             }
         }
         stage('Install dependencies') {
             steps {
                 // Install any dependencies listed in requirements.txt
-                sh "source $VENV_PATH/bin/activate && pip install -r requirements.txt"
+                sh 'bash -c "source $VENV_PATH/bin/activate && pip install -r requirements.txt"'
             }
         }
         stage('Run tests') {
@@ -46,7 +46,7 @@ pipeline {
         always {
             echo 'Build completed.'
             // Optional: Clean up if required
-            // sh "deactivate"
+            sh 'bash -c "deactivate"'
             // sh "rm -rf $VENV_PATH"
         }
     }
