@@ -6,45 +6,32 @@ pipeline {
     }
 
     stages {
-        stage('Prepare') {
+        stage('Prepare and Install dependencies') {
             steps {
                 script {
                     // Check for the virtual environment, create it if it doesn't exist
-                    sh 'bash -c "python3 -m venv $VENV_PATH"'
-                    // Activate the virtual environment
-                    sh 'bash -c "source $VENV_PATH/bin/activate"'
+                    // Activate the virtual environment and install dependencies
+                    sh '''
+                    python3 -m venv $VENV_PATH
+                    source $VENV_PATH/bin/activate
+                    pip install -r requirements.txt
+                    '''
                 }
             }
         }
-        stage('Install dependencies') {
+        stage('Run tests and Deploy') {
             steps {
-                // Install any dependencies listed in requirements.txt
-                sh 'bash -c "source $VENV_PATH/bin/activate && pip install -r requirements.txt"'
-            }
-        }
-        stage('Run tests') {
-            steps {
-                // Run your tests here. This is just a placeholder.
-                // For example, if you had tests, you might run: pytest
-                echo "Assuming tests are run here. Please replace this with actual test commands."
-                // sh "source $VENV_PATH/bin/activate && pytest"
-            }
-        }
-        stage('Deploy') {
-            steps {
-                // Your deployment logic goes here
-                // This could involve running a script like `delivery.sh`
-                // Or any commands to package and transfer your application
-                echo "Deploying application..."
-                // Example: sh "./delivery.sh"
+                // Assuming tests and deployment are managed here. Replace echo with actual commands.
+                echo "Assuming tests and deployment steps are run here. Please replace this with actual test commands and deployment logic."
+                // Example for tests: pytest
+                // Example for deployment: sh "./delivery.sh"
             }
         }
     }
     post {
         always {
             echo 'Build completed.'
-            // Optional: Clean up if required
-            sh "deactivate"
+            // Clean up if required. This is optional as the environment deactivates automatically.
             // sh "rm -rf $VENV_PATH"
         }
     }
