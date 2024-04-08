@@ -44,7 +44,7 @@ pipeline {
         always {
             echo 'Build completed.'
             // Optional: Clean up if required
-            sh 'bash -c "deactivate"'
+            sh "deactivate"'
             // sh "rm -rf $VENV_PATH"
         }
     }
